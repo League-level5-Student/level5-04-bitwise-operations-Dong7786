@@ -44,7 +44,7 @@ public class Base64DecoderTester {
 		check = Base64Decoder.convert4CharsTo24Bits("Bw1+");
 		// 000.001 110.000 110.101 111.110
 		// 0000.0111 0000.1101. 0111.1110
-		assertArrayEquals(answer, check);
+		assertArrayEquals(answer, check);		
 	}
 
 	@Test
@@ -81,3 +81,6 @@ public class Base64DecoderTester {
 		}
 	}
 }
+// 11111011
+// 01011100
+// 00000001

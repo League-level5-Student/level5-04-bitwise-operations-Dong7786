@@ -55,8 +55,8 @@ public class DecimalToBinary {
 		 *  *hint* https://en.wikipedia.org/wiki/Two%27s_complement
 		 * 
 		*/
-		
-		System.out.println( convertDecimalToBinary( 43 ) );
+	
+		System.out.println(convertDecimalToBinary(50));
 	}
 	
     public static String convertDecimalToBinary(int decimalNum) {
@@ -65,7 +65,7 @@ public class DecimalToBinary {
         do {
             // 1. Logical right shift by 1
             int quotient = decimalNum >>> 1;
-        
+            System.out.println(quotient);
             // 2. Check remainder and add '1' or '0'
             if( decimalNum % 2 != 0 ){
                 binaryStr = '1' + binaryStr;

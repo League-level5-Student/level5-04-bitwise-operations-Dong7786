@@ -24,7 +24,7 @@ public class Base64Decoder {
 	 * View this link for a full description of Base64 encoding
 	 * https://en.wikipedia.org/wiki/Base64
 	 */
-	
+
 	
 	final static char[] base64Chars = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
@@ -37,19 +37,121 @@ public class Base64Decoder {
 	//1. Complete this method so that it returns the the element in
 	//   the base64Chars array that corresponds to the passed in char.
 	public static byte convertBase64Char(char c){
+		for(byte i = 0; i < base64Chars.length; i ++) {
+			if(c == base64Chars[i]) {
+				return i;
+			}
+			
+		}
 		return 0;
+		
 	}
 	
 	//2. Complete this method so that it will take in a string that is 4 
 	//   characters long and return an array of 3 bytes (24 bits). The byte 
 	//   array should be the binary value of the encoded characters.
 	public static byte[] convert4CharsTo24Bits(String s){
+		if(s.length() == 4) {
+			String totalBinary = "";
+			
+			String binaryStr = "";
+			
+			for(int i = 0; i < s.length(); i ++) {
+				
+				byte b = convertBase64Char(s.charAt(i));
+			    
+		        for(int j = 0; j < 6; j ++) {
+		            // 1. Logical right shift by 1
+		            int quotient = b >> 1;
+		            System.out.println(quotient + " Quotient");
+		            // 2. Check remainder and add '1' or '0'
+		            if( b % 2 != 0 ){
+		                binaryStr = '1' + binaryStr;
+		            } else {
+		                binaryStr = '0' + binaryStr;
+		            }
+		            
+		            b = (byte) quotient;
+		            
+		        // 3. Repeat until number is 0
+		        } 
+		        totalBinary = totalBinary + binaryStr;
+		        binaryStr = "";
+			}
+			System.out.println(totalBinary + " Total Binary");
+			
+			byte[] converted = new byte[s.length()*6 / 8];
+			System.out.println(s.length()*6 /8 + ", Debug");
+			
+			int pre = 0;
+			for(int i = 0; i < s.length()*6 / 8; i ++) {
+				converted[i] = (byte) Integer.parseInt(totalBinary.substring(pre, (i+1)*8), 2);
+				pre = (i+1)*8;
+				
+			}
+			
+			
+			for(int i = 0; i < converted.length; i ++) {
+			System.out.print(converted[i] + ", ");
+			
+			}
+			System.out.println("Converted");
+			
+			return converted;
+		}else {
 		return null;
+		}
 	}
 	
 	//3. Complete this method so that it takes in a string of any length
 	//   and returns the full byte array of the decoded base64 characters.
 	public static byte[] base64StringToByteArray(String file) {
-		return null;
-	}
+		
+			String totalBinary = "";
+			
+			String binaryStr = "";
+			
+			for(int i = 0; i < file.length(); i ++) {
+				
+				byte b = convertBase64Char(file.charAt(i));
+			    
+		        for(int j = 0; j < 6; j ++) {
+		            // 1. Logical right shift by 1
+		            int quotient = b >> 1;
+		            System.out.println(quotient + " Quotient");
+		            // 2. Check remainder and add '1' or '0'
+		            if( b % 2 != 0 ){
+		                binaryStr = '1' + binaryStr;
+		            } else {
+		                binaryStr = '0' + binaryStr;
+		            }
+		            
+		            b = (byte) quotient;
+		            
+		        // 3. Repeat until number is 0
+		        } 
+		        totalBinary = totalBinary + binaryStr;
+		        binaryStr = "";
+			}
+			System.out.println(totalBinary + " Total Binary");
+			
+			byte[] converted = new byte[file.length()*6 / 8];
+			
+			int pre = 0;
+			for(int i = 0; i < file.length()*6 / 8; i ++) {
+				converted[i] = (byte) Integer.parseInt(totalBinary.substring(pre, (i+1)*8), 2);
+				pre = (i+1)*8;
+				
+			}
+			
+			
+			for(int i = 0; i < converted.length; i ++) {
+			System.out.print(converted[i] + ", ");
+			
+			}
+			System.out.println("Converted");
+			
+			return converted;
+		}
+	
 }
